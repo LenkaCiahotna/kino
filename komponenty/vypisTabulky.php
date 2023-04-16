@@ -3,12 +3,18 @@ class Tabulka
 {
     protected $data = null;
     protected $sloupce = null;
+    protected $nazevTabulky = null;
+
 //nazev v DB, nazev česky, skrývání/odkryty
-    public function __construct($data, $sloupce = array())
+    public function __construct($sloupce = array())
     {
-        $this->data=$data;
         //$this->sloupce=array_keys($this->data[0]);
         $this->sloupce=$sloupce;
+    }
+
+    public function nactidata()
+    {
+        $this->data = Db::queryAll("select * from ".$this->nazevTabulky);
     }
  
     public function uprava()
@@ -18,7 +24,30 @@ class Tabulka
         {
             ?>
             <tr>
-            <td><?=$sl->nazevUziv?></td><td><input type="text" ></td>
+            <td><?=$sl->nazevUziv?></td><td>
+            <?php
+            if($sl->ciziklic == null)
+            {
+                echo "<input type='text'>";
+            }
+            else
+            {
+                $data = Db::queryAll("select ".$sl->ciziklic->sloupec.",".$sl->ciziklic->data." from ".$sl->ciziklic->tabulka);
+                ?>
+                <select>
+                <?php
+                foreach($data as $d)
+                {
+                    ?>
+                    <option value=<?= $d[$sl->ciziklic->sloupec]?>><?= $d[$sl->ciziklic->data]?></option>
+                    <?php
+                }
+                ?>
+                </select>
+                <?php
+            }
+            ?>
+            </td>
             </tr>
             
             <?php
@@ -61,9 +90,10 @@ class Tabulka
 
 class Filmy extends Tabulka
 {
-    public function __construct($data)
+    public function __construct()
     {
-        parent::__construct($data); 
+        parent::__construct(); 
+        $this->nazevTabulky = "filmy";
         $this->sloupce = array(
             new Sloupec("id_filmu", "Id filmu"),
             new Sloupec("nazev","Název"),
@@ -76,13 +106,14 @@ class Filmy extends Tabulka
   
 class Promitani extends Tabulka
 {
-    public function __construct($data)
+    public function __construct()
     {
-        parent::__construct($data); 
+        parent::__construct(); 
+        $this->nazevTabulky = "promitani";
         $this->sloupce = array(
             new Sloupec("id_promitani", "Id promítání"),
-            new Sloupec("id_filmu","Id filmu"),
-            new Sloupec("id_saly","Id sály"),
+            new Sloupec("id_filmu","Id filmu", new CiziKlic("filmy", "id_filmu", "nazev")),
+            new Sloupec("id_saly","Id sály",  new CiziKlic("saly", "id_saly", "id_saly")),
             new Sloupec("termin","Termín")
         );
     }
@@ -90,9 +121,10 @@ class Promitani extends Tabulka
 
 class Saly extends Tabulka
 {
-    public function __construct($data)
+    public function __construct()
     {
-        parent::__construct($data); 
+        parent::__construct(); 
+        $this->nazevTabulky = "saly";
         $this->sloupce = array(
             new Sloupec("id_saly", "Id sály"),
             new Sloupec("kapacita","Kapacita")

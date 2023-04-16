@@ -9,22 +9,20 @@ $druh = "filmy";
     $druh = $_POST["druh"];
   }
 
-  $kategorie=null;
   switch($druh)
   {
       case "filmy":
-          $vypis = new Filmy($kategorie);
+          $vypis = new Filmy();
           break;
   
       case "promitani":
-          $vypis = new Promitani($kategorie);
+          $vypis = new Promitani();
           break;
   
       case "saly":
-          $vypis = new Saly($kategorie);
+          $vypis = new Saly();
           break;
   }
-
 
 ?>
 <html>
@@ -52,7 +50,11 @@ $druh = "filmy";
     <?php
 $vypis->uprava();
 
+
     ?>
+     <input type="submit" value="ulož">
     </form>
   
 <?php
+$vypis->nactidata();
+$vypis->vykresli();

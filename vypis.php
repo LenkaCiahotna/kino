@@ -11,8 +11,6 @@ $druh = "filmy";
   }
 
 
-
-
 ?>
 <html>
 <head>
@@ -42,22 +40,23 @@ $druh = "filmy";
 
 
 
-$kategorie = Db::queryAll("select * from $druh");
+//$kategorie = Db::queryAll("select * from $druh");
 $vypis;
 switch($druh)
 {
     case "filmy":
-        $vypis = new Filmy($kategorie);
+        $vypis = new Filmy();
         break;
 
     case "promitani":
-        $vypis = new Promitani($kategorie);
+        $vypis = new Promitani();
         break;
 
     case "saly":
-        $vypis = new Saly($kategorie);
+        $vypis = new Saly();
         break;
 }
+$vypis->nactidata();
 $vypis->vykresli();
 /*
 echo "<table border=2>";
