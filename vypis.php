@@ -38,10 +38,10 @@ $druh = "filmy";
   
 <?php
 
-
+//insert into TABULKA (NAZVY SLOUPCU) values (HODNOTY)
 
 //$kategorie = Db::queryAll("select * from $druh");
-$vypis;
+
 switch($druh)
 {
     case "filmy":

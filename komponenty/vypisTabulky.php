@@ -19,12 +19,13 @@ class Tabulka
  
     public function uprava()
     {
-        echo "<table>";
+        echo "<form method='POST'><table>";
         foreach($this->sloupce as $sl)
         {
             ?>
             <tr>
-            <td><?=$sl->nazevUziv?></td><td>
+            <td><?=$sl->nazevUziv?></td>
+            <td>
             <?php
             if($sl->ciziklic == null)
             {
@@ -52,7 +53,7 @@ class Tabulka
             
             <?php
         }
-        echo "</table>";
+        echo "</table><form>";
     }
 
     public function vykresli()
