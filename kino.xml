@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 5.2.0
+- https://www.phpmyadmin.net
+-
+- Počítač: 127.0.0.1
+- Vytvořeno: Pon 24. dub 2023, 23:42
+- Verze serveru: 10.4.25-MariaDB
+- Verze PHP: 8.1.10
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="https://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="kino" collation="utf8mb4_czech_ci" charset="utf8mb4">
+            <pma:table name="filmy">
+                CREATE TABLE `filmy` (
+                  `id_filmu` int(11) NOT NULL AUTO_INCREMENT,
+                  `nazev` varchar(100) COLLATE utf8mb4_czech_ci NOT NULL,
+                  `zanr` varchar(25) COLLATE utf8mb4_czech_ci NOT NULL,
+                  `delkaVMinutach` int(11) NOT NULL,
+                  `popis` text COLLATE utf8mb4_czech_ci NOT NULL,
+                  PRIMARY KEY (`id_filmu`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
+            </pma:table>
+            <pma:table name="promitani">
+                CREATE TABLE `promitani` (
+                  `id_promitani` int(11) NOT NULL AUTO_INCREMENT,
+                  `id_filmu` int(11) NOT NULL,
+                  `id_saly` int(11) NOT NULL,
+                  `termin` date NOT NULL,
+                  `cas` time NOT NULL,
+                  PRIMARY KEY (`id_promitani`),
+                  KEY `id_filmu` (`id_filmu`),
+                  KEY `id_saly` (`id_saly`),
+                  CONSTRAINT `promitani_ibfk_1` FOREIGN KEY (`id_saly`) REFERENCES `saly` (`id_saly`),
+                  CONSTRAINT `promitani_ibfk_2` FOREIGN KEY (`id_filmu`) REFERENCES `filmy` (`id_filmu`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
+            </pma:table>
+            <pma:table name="saly">
+                CREATE TABLE `saly` (
+                  `id_saly` int(11) NOT NULL AUTO_INCREMENT,
+                  `kapacita` int(11) NOT NULL,
+                  PRIMARY KEY (`id_saly`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Databáze: 'kino'
+    -->
+    <database name="kino">
+        <!-- Tabulka filmy -->
+        <table name="filmy">
+            <column name="id_filmu">1</column>
+            <column name="nazev">DUNGEONS &amp; DRAGONS: ČEST ZLODĚJŮ</column>
+            <column name="zanr">Akční</column>
+            <column name="delkaVMinutach">134</column>
+            <column name="popis">Potulný zpěvák neboli bard Edgin (Chris Pine) se živí tím, že se svou partou zlodějíčků pomáhá měnit majitele vzácných artefaktů (jednomu ho ukradnou a druhému prodají). Je to práce, při které prakticky neustále strkáte hlavu do oprátky, a ani Edgin nemůže mít věčně kliku. Když se mu podaří šlohnout to, co se nikdy nemělo dostat do nesprávných rukou, a on to navíc do těch rukou dobrovolně vloží, spustí dominový efekt, který může otřást celým světem. Edgin je sice tak trochu zmetek, ale pořád má v sobě kousek cti, a tak se rozhodne napravit, co spískal. Protože však proti němu stojí armáda nelítostných zabijáků, mocných čarodějů a bývalý kamarád Forge Fletcher (Hugh Grant), potřebuje tým, se kterým by mohl mít aspoň nepatrnou šanci v tomhle úkolu obstát. A protože film vychází z legendární hry Dračí doupě, je jasné, že v jeho partě nesmí chybět drsná válečnice (Michelle Rodriguez), ušlechtilý rytíř (Regé-Jean Page), mág (Justice Smith) nebo druidka (Sophia Lillis).</column>
+        </table>
+        <table name="filmy">
+            <column name="id_filmu">6</column>
+            <column name="nazev">pokus</column>
+            <column name="zanr">pokus</column>
+            <column name="delkaVMinutach">80</column>
+            <column name="popis">pokus</column>
+        </table>
+        <table name="filmy">
+            <column name="id_filmu">7</column>
+            <column name="nazev">ggseg</column>
+            <column name="zanr">gesg</column>
+            <column name="delkaVMinutach">66</column>
+            <column name="popis">gsgs</column>
+        </table>
+        <table name="filmy">
+            <column name="id_filmu">8</column>
+            <column name="nazev">ggseg</column>
+            <column name="zanr">gesg</column>
+            <column name="delkaVMinutach">66</column>
+            <column name="popis">gsgs</column>
+        </table>
+        <!-- Tabulka promitani -->
+        <table name="promitani">
+            <column name="id_promitani">1</column>
+            <column name="id_filmu">1</column>
+            <column name="id_saly">2</column>
+            <column name="termin">2023-04-11</column>
+            <column name="cas">15:00:00</column>
+        </table>
+        <table name="promitani">
+            <column name="id_promitani">2</column>
+            <column name="id_filmu">1</column>
+            <column name="id_saly">2</column>
+            <column name="termin">2023-04-11</column>
+            <column name="cas">09:20:00</column>
+        </table>
+        <table name="promitani">
+            <column name="id_promitani">3</column>
+            <column name="id_filmu">1</column>
+            <column name="id_saly">3</column>
+            <column name="termin">2023-04-11</column>
+            <column name="cas">00:00:00</column>
+        </table>
+        <table name="promitani">
+            <column name="id_promitani">4</column>
+            <column name="id_filmu">1</column>
+            <column name="id_saly">1</column>
+            <column name="termin">2023-04-07</column>
+            <column name="cas">07:34:00</column>
+        </table>
+        <table name="promitani">
+            <column name="id_promitani">6</column>
+            <column name="id_filmu">6</column>
+            <column name="id_saly">3</column>
+            <column name="termin">2023-04-19</column>
+            <column name="cas">20:19:00</column>
+        </table>
+        <table name="promitani">
+            <column name="id_promitani">7</column>
+            <column name="id_filmu">7</column>
+            <column name="id_saly">2</column>
+            <column name="termin">2023-04-17</column>
+            <column name="cas">01:26:00</column>
+        </table>
+        <table name="promitani">
+            <column name="id_promitani">8</column>
+            <column name="id_filmu">6</column>
+            <column name="id_saly">2</column>
+            <column name="termin">2023-04-10</column>
+            <column name="cas">21:34:00</column>
+        </table>
+        <!-- Tabulka saly -->
+        <table name="saly">
+            <column name="id_saly">1</column>
+            <column name="kapacita">200</column>
+        </table>
+        <table name="saly">
+            <column name="id_saly">2</column>
+            <column name="kapacita">200</column>
+        </table>
+        <table name="saly">
+            <column name="id_saly">3</column>
+            <column name="kapacita">150</column>
+        </table>
+        <table name="saly">
+            <column name="id_saly">4</column>
+            <column name="kapacita">250</column>
+        </table>
+    </database>
+</pma_xml_export>

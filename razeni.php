@@ -24,14 +24,15 @@ $druh = "filmy";
           break;
   }
 
+
 ?>
 <html>
 <head>
-<title>Přidávání</title>
+<title>Řazení</title>
 </head>
 
 <body>  
-<h1>Přidávání</h1>
+    <h1>Řazení</h1>
 <nav>
   <ul id="navigace">
  <li><a href="vypis.php">Výpis</a></li>
@@ -48,14 +49,7 @@ $druh = "filmy";
         <option value="saly" <?= ($druh=="saly" ?  'selected' : '') ?>>Sály</option>
     </select>
     <?php
-$vypis->uprava();
-//insert into TABULKA (NAZVY SLOUPCU) values (HODNOTY)
-$vypis->pridej();
-
-    ?>
-     <input type="submit" value="ulož">
-    </form>
-  
-<?php
-$vypis->nactidata();
+$vypis->serad();  
 $vypis->vykresli();
+?> </form>
+

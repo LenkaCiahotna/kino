@@ -2,12 +2,14 @@
 <html>
     <h1>Lenčino kino</h1>
 <body>
-    <form action="vypis.php" method="POST">
-<button name="druh" value="filmy" >filmy</button>
-<button  name="druh" value="saly">sály</button>
-<button  name="druh" value="promitani">promítání</button>
-
-    </form>
+<nav>
+  <ul id="navigace">
+ <li><a href="vypis.php">Výpis</a></li>
+  <li><a href="pridavani.php">Přidávání</a></li>
+ <li><a href="razeni.php">Řazení</a></li>
+  <li><a href="skola.html">Výběr</a></li>
+  </ul>
+  </nav>
 </body>
 
 </html>

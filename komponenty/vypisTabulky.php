@@ -1,26 +1,158 @@
 <?php
-class vypisTabulky
+class Tabulka
 {
     protected $data = null;
     protected $sloupce = null;
+    protected $nazevTabulky = null;
 
-    public function __construct($data)
+//nazev v DB, nazev česky, skrývání/odkryty
+    public function __construct($sloupce = array())
     {
-        $this->data=$data;
-        print_r($data);
-        $this->sloupce=array_keys($this->data[0]);
-        print_r($this->sloupce);    }
+        //$this->sloupce=array_keys($this->data[0]);
+        $this->sloupce=$sloupce;
+    }
+
+    public function nactidata()
+    {
+        $this->data = Db::queryAll("select * from ".$this->nazevTabulky);
+    }
+ 
+    public function uprava()
+    {
+        echo "<table>";
+        foreach(array_slice($this->sloupce,1) as $sl)
+        {
+            
+            ?>
+            <tr>
+            <td><?=$sl->nazevUziv?></td>
+            <td>
+            <?php
+             if($sl->datTyp == "datum")
+             {
+                 echo "<input type='date' name='".$sl->nazevDb."'>";
+             }
+             else if($sl->datTyp == "cas")
+             {
+                 echo "<input type='time' name='".$sl->nazevDb."'>";
+             }
+             else if($sl->datTyp == "int")
+             {
+                 echo "<input type='number' name='".$sl->nazevDb."'>";
+             }
+             else if($sl->ciziklic == null)
+            {
+                echo "<input type='text' name='".$sl->nazevDb."'>";
+            }
+             else
+            {
+                $data = Db::queryAll("select ".$sl->ciziklic->sloupec.",".$sl->ciziklic->data." from ".$sl->ciziklic->tabulka);
+                ?>
+                <select name='<?= $sl->nazevDb ?>'>
+                <?php
+                foreach($data as $d)
+                {
+                    ?>
+                    <option value=<?= $d[$sl->ciziklic->sloupec]?>><?= $d[$sl->ciziklic->data]?></option>
+                    <?php
+                }
+                ?>
+                </select>
+                <?php
+            }
+            ?>
+            </td>
+            </tr>
+            
+            <?php
+        }
+        echo "</table>";
+    }
+
+    public function serad()
+    {
+        if(isset($_POST["sloupec"]))
+        {
+        $sloupec = $_POST["sloupec"];
+       ?> <br>
+        Vyber sloupec, podle kterého chceš řadit: 
+        <?php
+          ?>
+          <select name="sloupec">
+                <?php
+                foreach($this->sloupce as $sl)
+                {
+                    ?>
+                    <option value=<?php $sl->nazevDb; $sloupec==$sl->nazevDb ?  'selected' : '' ?>><?= $sl->nazevUziv?></option>
+                    <?php
+                }
+                ?>
+        </select
+       ?>
+       Sestupně: <input type="checkbox" name="sestupnost">
+       <input type="submit">
+      <?php
+        
+        $this->data = Db::queryAll("select * from ".$this->nazevTabulky." order by ".$sloupec);
+        
+         }
+    }
+    public function pridej()
+    {
+        $chyba = "";
+        $chybi=false;
+        foreach(array_slice($this->sloupce,1) as $sl)
+        {    
+            if($sl->jePrazdny())
+            {
+                $chyba = "hodnota ".$sl->nazevUziv." nesmí být prázdná!";
+                $chybi = true;
+                break;
+            }
+        }
+         
+        
+       if(!$chybi)
+       {
+        $sloupceString = array();
+        $dataString = array();
+        foreach(array_slice($this->sloupce,1) as $sl)
+        {
+            if($sl->ciziklic == null)
+            {
+                $sloupceString[] = $sl->nazevDb;
+                $dataString[]= "\"".$_POST[$sl->nazevDb]."\"";
+            }
+            else if($sl->ciziklic != null)
+            {
+                $dataString[] =$_POST[$sl->nazevDb];
+                $sloupceString[] = $sl->nazevDb;
+            }   
+        }
+        $sloupceString2 = join(", ", $sloupceString);
+        $dataString2 = join(", ", $dataString);
+
+        Db::queryAll("insert into ".$this->nazevTabulky." (".$sloupceString2.") values (".$dataString2.")");
+       }
+       else
+       {
+        echo $chyba;
+       }
+           
+       
+  
+    }
 
     public function vykresli()
     {
         
         ?>
-            <table>
+            <table border="2" >
                 <tr>
                     <?php
                         for($i = 0; $i < count($this->sloupce); $i++)
                         {?>
-                            <th><?=$this->sloupce[$i]?></th>
+                            <th><?=$this->sloupce[$i]->nazevUziv?></th>
                         <?php }
                     ?>
                 </tr>
@@ -32,7 +164,8 @@ class vypisTabulky
                             for($y = 0; $y < count($this->sloupce); $y++)
                             {
                                 ?>
-                                <td><?=$this->data[$i][$this->sloupce[$y]]?></td>
+                                <td><?=$this->data[$i][$this->sloupce[$y]->nazevDb]?></td>
+                               
                             <?php
                             }
                             echo " </tr>";
@@ -41,5 +174,52 @@ class vypisTabulky
                          
             </table>
         <?php
+    }
+
+
+}
+
+class Filmy extends Tabulka
+{
+    public function __construct()
+    {
+        parent::__construct(); 
+        $this->nazevTabulky = "filmy";
+        $this->sloupce = array(
+            new Sloupec("id_filmu", "Id filmu"),
+            new Sloupec("nazev","Název"),
+            new Sloupec("zanr","Žánr"),
+            new Sloupec("delkaVMinutach","Délka v minutách", "int"),
+            new Sloupec("popis","Popis")
+        );
+    }
+}
+  
+class Promitani extends Tabulka
+{
+    public function __construct()
+    {
+        parent::__construct(); 
+        $this->nazevTabulky = "promitani";
+        $this->sloupce = array(
+            new Sloupec("id_promitani", "Id promítání"),
+            new Sloupec("id_filmu","Id filmu", null, new CiziKlic("filmy", "id_filmu", "nazev")),
+            new Sloupec("id_saly","Id sály", null, new CiziKlic("saly", "id_saly", "id_saly")),
+            new Sloupec("termin","Termín", "datum"),
+            new Sloupec("cas", "Čas", "cas")
+        );
+    }
+}
+
+class Saly extends Tabulka
+{
+    public function __construct()
+    {
+        parent::__construct(); 
+        $this->nazevTabulky = "saly";
+        $this->sloupce = array(
+            new Sloupec("id_saly", "Id sály"),
+            new Sloupec("kapacita","Kapacita", "int")
+        );
     }
 }
