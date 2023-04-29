@@ -38,18 +38,27 @@ $druh = "filmy";
  <li><a href="vypis.php">Výpis</a></li>
   <li><a href="pridavani.php">Přidávání</a></li>
  <li><a href="razeni.php">Řazení</a></li>
-  <li><a href="skola.html">Výběr</a></li>
+  <li><a href="vyber.php">Výběr</a></li>
   </ul>
   </nav>
+  <script>
+    function odeslat()
+    {
+        let schovano = document.querySelector("#zmenaTabulky"); 
+      schovano.value = "1";
+    }
+    </script>
     <form method="POST">
     Vyber tabulku: 
-    <select name="druh" onchange="submit()">
+    <select name="druh" onchange="odeslat();submit()">
         <option value="filmy" <?= ($druh=="filmy" ?  'selected' : '') ?>>Filmy</option>
         <option value="promitani" <?= ($druh=="promitani" ?  'selected' : '') ?>>Promítání</option>
         <option value="saly" <?= ($druh=="saly" ?  'selected' : '') ?>>Sály</option>
     </select>
+    <input type="hidden" id="zmenaTabulky" name="zmenaTabulky" value="">
     <?php
 $vypis->serad();  
+
 $vypis->vykresli();
 ?> </form>
 

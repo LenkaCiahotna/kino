@@ -71,9 +71,12 @@ class Tabulka
 
     public function serad()
     {
+        $sloupec = null;
+        $sestupnost = isset($_POST["sestupnost"]) && $_POST["zmenaTabulky"] != 1;
         if(isset($_POST["sloupec"]))
         {
         $sloupec = $_POST["sloupec"];
+        }
        ?> <br>
         Vyber sloupec, podle kterého chceš řadit: 
         <?php
@@ -83,19 +86,22 @@ class Tabulka
                 foreach($this->sloupce as $sl)
                 {
                     ?>
-                    <option value=<?php $sl->nazevDb; $sloupec==$sl->nazevDb ?  'selected' : '' ?>><?= $sl->nazevUziv?></option>
+                    <option value="<?= $sl->nazevDb ?>"  <?= ($sloupec==$sl->nazevDb && $_POST["zmenaTabulky"] != 1 ?  ' selected' : '' ) ?>><?= $sl->nazevUziv?></option>
                     <?php
                 }
                 ?>
-        </select
-       ?>
-       Sestupně: <input type="checkbox" name="sestupnost">
+        </select>
+       Sestupně: <input type="checkbox" name="sestupnost" <?= ($sestupnost ? 'checked' : '') ?>>
        <input type="submit">
+
       <?php
+        if($sloupec != null && $_POST["zmenaTabulky"] != 1)
+        {
+            $this->data = Db::queryAll("select * from ".$this->nazevTabulky." order by ".$sloupec." ".($sestupnost ? 'desc' : ''));
+        }
         
-        $this->data = Db::queryAll("select * from ".$this->nazevTabulky." order by ".$sloupec);
         
-         }
+         
     }
     public function pridej()
     {
@@ -145,8 +151,9 @@ class Tabulka
 
     public function vykresli()
     {
-        
-        ?>
+        if($this->data != null)   
+        {
+            ?>
             <table border="2" >
                 <tr>
                     <?php
@@ -158,6 +165,8 @@ class Tabulka
                 </tr>
                 
                     <?php
+                    
+                    
                         for($i = 0; $i < count($this->data); $i++)
                         {
                             echo "<tr>";
@@ -169,10 +178,14 @@ class Tabulka
                             <?php
                             }
                             echo " </tr>";
-                        }
+                        } 
+                      
+         }
                     ?>
                          
             </table>
+        
+        
         <?php
     }
 

@@ -9,29 +9,15 @@ $druh = "filmy";
     $druh = $_POST["druh"];
   }
 
-  switch($druh)
-  {
-      case "filmy":
-          $vypis = new Filmy();
-          break;
-  
-      case "promitani":
-          $vypis = new Promitani();
-          break;
-  
-      case "saly":
-          $vypis = new Saly();
-          break;
-  }
 
 ?>
 <html>
 <head>
-<title>Přidávání</title>
+<title>Výběr</title>
 </head>
 
 <body>  
-<h1>Přidávání</h1>
+    <h1>Výběr</h1>
 <nav>
   <ul id="navigace">
  <li><a href="vypis.php">Výpis</a></li>
@@ -47,15 +33,6 @@ $druh = "filmy";
         <option value="promitani" <?= ($druh=="promitani" ?  'selected' : '') ?>>Promítání</option>
         <option value="saly" <?= ($druh=="saly" ?  'selected' : '') ?>>Sály</option>
     </select>
-    <?php
-$vypis->uprava();
-//insert into TABULKA (NAZVY SLOUPCU) values (HODNOTY)
-$vypis->pridej();
-
-    ?>
-     <input type="submit" value="ulož">
     </form>
   
 <?php
-$vypis->nactidata();
-$vypis->vykresli();
