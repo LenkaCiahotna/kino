@@ -28,18 +28,6 @@ class Sloupec
     }
     return true;
   }
-
-  public  function jePrazdny()
-  {
-    if(isset($_POST[$this->nazevDb]))
-    {
-      if(trim($_POST[$this->nazevDb]) != "")
-      {
-        return false;
-      }
-    }
-    return true;
-  }
 }
 
 class CiziKlic
