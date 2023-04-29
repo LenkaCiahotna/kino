@@ -50,7 +50,12 @@ $druh = "filmy";
     <?php
 $vypis->uprava();
 //insert into TABULKA (NAZVY SLOUPCU) values (HODNOTY)
-$vypis->pridej();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST')
+{
+  $vypis->pridej();
+}
+
 
     ?>
      <input type="submit" value="ulož">

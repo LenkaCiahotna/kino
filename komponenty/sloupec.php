@@ -17,7 +17,7 @@ class Sloupec
     $this->datTyp = $datTyp;
   }
 
-  public  function jePrazdny()
+  public function jePrazdny()
   {
     if(isset($_POST[$this->nazevDb]))
     {

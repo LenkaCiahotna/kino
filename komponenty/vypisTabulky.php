@@ -1,6 +1,7 @@
 <?php
 class Tabulka
 {
+    
     protected $data = null;
     protected $sloupce = null;
     protected $nazevTabulky = null;
@@ -107,16 +108,16 @@ class Tabulka
     {
         $chyba = "";
         $chybi=false;
-        foreach(array_slice($this->sloupce,1) as $sl)
-        {    
-            if($sl->jePrazdny())
-            {
-                $chyba = "hodnota ".$sl->nazevUziv." nesmí být prázdná!";
-                $chybi = true;
-                break;
-            }
-        }
-         
+
+            foreach(array_slice($this->sloupce,1) as $sl)
+            {    
+                if($sl->jePrazdny())
+                {
+                    $chyba = "hodnota ".$sl->nazevUziv." nesmí být prázdná!";
+                    $chybi = true;
+                    break;
+                }
+            }     
         
        if(!$chybi)
        {
@@ -144,9 +145,6 @@ class Tabulka
        {
         echo $chyba;
        }
-           
-       
-  
     }
 
     public function vykresli()
