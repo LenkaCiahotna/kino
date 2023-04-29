@@ -38,7 +38,7 @@ $druh = "filmy";
   
 <?php
 
-//insert into TABULKA (NAZVY SLOUPCU) values (HODNOTY)
+
 
 //$kategorie = Db::queryAll("select * from $druh");
 
@@ -56,6 +56,8 @@ switch($druh)
         $vypis = new Saly();
         break;
 }
+
+ 
 $vypis->nactidata();
 $vypis->vykresli();
 /*

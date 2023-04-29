@@ -14,6 +14,18 @@ class Sloupec
     $this->zobrazit = $zobrazit;
     $this->ciziklic = $ciziklic;
   }
+
+  public  function jePrazdny()
+  {
+    if(isset($_POST[$this->nazevDb]))
+    {
+      if(trim($_POST[$this->nazevDb]) != "")
+      {
+        return false;
+      }
+    }
+    return true;
+  }
 }
 
 class CiziKlic

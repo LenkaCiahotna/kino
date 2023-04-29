@@ -49,7 +49,8 @@ $druh = "filmy";
     </select>
     <?php
 $vypis->uprava();
-
+//insert into TABULKA (NAZVY SLOUPCU) values (HODNOTY)
+$vypis->pridej();
 
     ?>
      <input type="submit" value="ulož">
