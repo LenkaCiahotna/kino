@@ -23,7 +23,7 @@ $druh = "filmy";
   <ul id="navigace">
  <li><a href="vypis.php">Výpis</a></li>
   <li><a href="pridavani.php">Přidávání</a></li>
- <li><a href="mesto.html">Řazení</a></li>
+ <li><a href="razeni.php">Řazení</a></li>
   <li><a href="skola.html">Výběr</a></li>
   </ul>
   </nav>
@@ -37,8 +37,6 @@ $druh = "filmy";
     </form>
   
 <?php
-
-//insert into TABULKA (NAZVY SLOUPCU) values (HODNOTY)
 
 //$kategorie = Db::queryAll("select * from $druh");
 
@@ -56,6 +54,8 @@ switch($druh)
         $vypis = new Saly();
         break;
 }
+
+ 
 $vypis->nactidata();
 $vypis->vykresli();
 /*
