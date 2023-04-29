@@ -28,19 +28,23 @@ class Tabulka
             <td><?=$sl->nazevUziv?></td>
             <td>
             <?php
-             if($sl->nazevDb == "termin")
+             if($sl->datTyp == "datum")
              {
                  echo "<input type='date' name='".$sl->nazevDb."'>";
              }
-             else if($sl->nazevDb == "cas")
+             else if($sl->datTyp == "cas")
              {
                  echo "<input type='time' name='".$sl->nazevDb."'>";
              }
-            else if($sl->ciziklic == null)
+             else if($sl->datTyp == "int")
+             {
+                 echo "<input type='number' name='".$sl->nazevDb."'>";
+             }
+             else if($sl->ciziklic == null)
             {
                 echo "<input type='text' name='".$sl->nazevDb."'>";
             }
-            else
+             else
             {
                 $data = Db::queryAll("select ".$sl->ciziklic->sloupec.",".$sl->ciziklic->data." from ".$sl->ciziklic->tabulka);
                 ?>
@@ -65,6 +69,34 @@ class Tabulka
         echo "</table>";
     }
 
+    public function serad()
+    {
+        if(isset($_POST["sloupec"]))
+        {
+        $sloupec = $_POST["sloupec"];
+       ?> <br>
+        Vyber sloupec, podle kterého chceš řadit: 
+        <?php
+          ?>
+          <select name="sloupec">
+                <?php
+                foreach($this->sloupce as $sl)
+                {
+                    ?>
+                    <option value=<?php $sl->nazevDb; $sloupec==$sl->nazevDb ?  'selected' : '' ?>><?= $sl->nazevUziv?></option>
+                    <?php
+                }
+                ?>
+        </select
+       ?>
+       Sestupně: <input type="checkbox" name="sestupnost">
+       <input type="submit">
+      <?php
+        
+        $this->data = Db::queryAll("select * from ".$this->nazevTabulky." order by ".$sloupec);
+        
+         }
+    }
     public function pridej()
     {
         $chyba = "";
@@ -143,6 +175,8 @@ class Tabulka
             </table>
         <?php
     }
+
+
 }
 
 class Filmy extends Tabulka
@@ -155,7 +189,7 @@ class Filmy extends Tabulka
             new Sloupec("id_filmu", "Id filmu"),
             new Sloupec("nazev","Název"),
             new Sloupec("zanr","Žánr"),
-            new Sloupec("delkaVMinutach","Délka v minutách"),
+            new Sloupec("delkaVMinutach","Délka v minutách", "int"),
             new Sloupec("popis","Popis")
         );
     }
@@ -169,10 +203,10 @@ class Promitani extends Tabulka
         $this->nazevTabulky = "promitani";
         $this->sloupce = array(
             new Sloupec("id_promitani", "Id promítání"),
-            new Sloupec("id_filmu","Id filmu", new CiziKlic("filmy", "id_filmu", "nazev")),
-            new Sloupec("id_saly","Id sály",  new CiziKlic("saly", "id_saly", "id_saly")),
-            new Sloupec("termin","Termín"),
-            new Sloupec("cas", "Čas")
+            new Sloupec("id_filmu","Id filmu", null, new CiziKlic("filmy", "id_filmu", "nazev")),
+            new Sloupec("id_saly","Id sály", null, new CiziKlic("saly", "id_saly", "id_saly")),
+            new Sloupec("termin","Termín", "datum"),
+            new Sloupec("cas", "Čas", "cas")
         );
     }
 }
@@ -185,7 +219,7 @@ class Saly extends Tabulka
         $this->nazevTabulky = "saly";
         $this->sloupce = array(
             new Sloupec("id_saly", "Id sály"),
-            new Sloupec("kapacita","Kapacita")
+            new Sloupec("kapacita","Kapacita", "int")
         );
     }
 }
