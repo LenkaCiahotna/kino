@@ -18,7 +18,50 @@ class Tabulka
         $this->data = Db::queryAll("select * from ".$this->nazevTabulky);
     }
  
-    public function uprava()
+    public function FormularVyber()
+    {
+       
+        echo "<table>";
+        foreach($this->sloupce as $sl)
+        {
+            $zaskrknuto = isset($_POST[$sl->nazevDb]) && $_POST["zmenaTabulky"] != 1;;
+         ?>
+            <tr>
+            <td><?=$sl->nazevUziv?></td>
+            <td><input type="checkbox" name=<?=$sl->nazevDb?> <?= $zaskrknuto ? "checked" : "" ?>></td>
+            </tr>
+         <?php
+        }
+        echo "</table>";
+    }
+
+    public function Vyber()
+    {
+        $vyber = array();
+        foreach($this->sloupce as $sl)
+        {         
+            if(!isset($_POST[$sl->nazevDb]))
+            {
+                $sl->zobrazit = false;
+            }
+            if($sl->zobrazit == true)
+            {
+                $vyber[] = $sl->nazevDb;
+            }
+        }
+        $vyberString = join(", ", $vyber);
+        if($vyberString != "")
+        {
+            $this->data = Db::queryAll("select ".$vyberString." from ".$this->nazevTabulky);
+        }
+        else
+        {
+            echo "Vyber alespoň 1 položku";
+        }
+        
+       
+    }
+    public function FormularPridavani()
     {
         echo "<table>";
         foreach(array_slice($this->sloupce,1) as $sl)
@@ -43,7 +86,7 @@ class Tabulka
              }
              else if($sl->ciziklic == null)
             {
-                echo "<input type='text' name='".$sl->nazevDb."'>";
+                 echo "<input type='text' name='".$sl->nazevDb."'>";
             }
              else
             {
@@ -140,13 +183,14 @@ class Tabulka
         $dataString2 = join(", ", $dataString);
 
         Db::queryAll("insert into ".$this->nazevTabulky." (".$sloupceString2.") values (".$dataString2.")");
+        header("Location: pridavani.php?druh=".$this->nazevTabulky);
        }
        else
        {
         echo $chyba;
        }
+    
     }
-
     public function vykresli()
     {
         if($this->data != null)   
@@ -155,35 +199,36 @@ class Tabulka
             <table border="2" >
                 <tr>
                     <?php
-                        for($i = 0; $i < count($this->sloupce); $i++)
-                        {?>
-                            <th><?=$this->sloupce[$i]->nazevUziv?></th>
-                        <?php }
+                        foreach($this->sloupce as $sl)
+                        {
+                            if($sl->zobrazit)
+                            {
+                                ?>
+                            <th><?=$sl->nazevUziv?></th>
+                        <?php 
+                            }
+                        }
                     ?>
-                </tr>
-                
+                </tr>      
                     <?php
-                    
-                    
                         for($i = 0; $i < count($this->data); $i++)
                         {
                             echo "<tr>";
-                            for($y = 0; $y < count($this->sloupce); $y++)
+                            foreach($this->sloupce as $sl)
                             {
+                                if($sl->zobrazit)
+                                {
                                 ?>
-                                <td><?=$this->data[$i][$this->sloupce[$y]->nazevDb]?></td>
-                               
+                                <td><?=$this->data[$i][$sl->nazevDb]?></td>  
                             <?php
+                                }
                             }
                             echo " </tr>";
                         } 
                       
          }
-                    ?>
-                         
-            </table>
-        
-        
+                    ?>                  
+            </table>  
         <?php
     }
 

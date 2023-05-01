@@ -9,6 +9,21 @@ $druh = "filmy";
     $druh = $_POST["druh"];
   }
 
+  switch($druh)
+  {
+      case "filmy":
+          $vypis = new Filmy();
+          break;
+  
+      case "promitani":
+          $vypis = new Promitani();
+          break;
+  
+      case "saly":
+          $vypis = new Saly();
+          break;
+  }
+
 
 ?>
 <html>
@@ -26,13 +41,30 @@ $druh = "filmy";
   <li><a href="vyber.php">Výběr</a></li>
   </ul>
   </nav>
+  <script>
+    function odeslat()
+    {
+        let schovano = document.querySelector("#zmenaTabulky"); 
+      schovano.value = "1";
+    }
+    </script>
     <form method="POST">
     Vyber tabulku: 
-    <select name="druh" onchange="submit()">
+    <select name="druh" onchange="odeslat();submit()">
         <option value="filmy" <?= ($druh=="filmy" ?  'selected' : '') ?>>Filmy</option>
         <option value="promitani" <?= ($druh=="promitani" ?  'selected' : '') ?>>Promítání</option>
         <option value="saly" <?= ($druh=="saly" ?  'selected' : '') ?>>Sály</option>
     </select>
+ <?php
+$vypis->FormularVyber();
+ ?>
+ <input type="submit" value="ulož" name="uloz">
+ <input type="hidden" id="zmenaTabulky" name="zmenaTabulky" value="">
     </form>
   
 <?php
+if (isset($_POST["uloz"]))
+{
+  $vypis->Vyber();
+}
+$vypis->vykresli();

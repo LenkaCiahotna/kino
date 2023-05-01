@@ -8,6 +8,13 @@ $druh = "filmy";
   {
     $druh = $_POST["druh"];
   }
+  else
+  {
+    if(isset($_GET['druh']))
+  {
+    $druh = $_GET["druh"];
+  }
+  }
 
   switch($druh)
   {
@@ -48,19 +55,20 @@ $druh = "filmy";
         <option value="saly" <?= ($druh=="saly" ?  'selected' : '') ?>>Sály</option>
     </select>
     <?php
-$vypis->uprava();
+$vypis->FormularPridavani();
 //insert into TABULKA (NAZVY SLOUPCU) values (HODNOTY)
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST')
+
+
+    ?>
+     <input type="submit" value="ulož" name="uloz">
+    </form>
+  
+<?php
+if (isset($_POST["uloz"]))
 {
   $vypis->pridej();
 }
 
-
-    ?>
-     <input type="submit" value="ulož">
-    </form>
-  
-<?php
 $vypis->nactidata();
 $vypis->vykresli();
