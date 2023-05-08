@@ -1,3 +1,4 @@
+
 <?php
 class Tabulka
 {
@@ -5,6 +6,8 @@ class Tabulka
     protected $data = null;
     protected $sloupce = null;
     protected $nazevTabulky = null;
+
+    public static $stranka = "index";
 
 //nazev v DB, nazev česky, skrývání/odkryty
     public function __construct($sloupce = array())
@@ -196,7 +199,8 @@ class Tabulka
         if($this->data != null)   
         {
             ?>
-            <table border="2" >
+            <table class="table table-striped table-secondary" >
+                <thead class="table-dark">
                 <tr>
                     <?php
                         foreach($this->sloupce as $sl)
@@ -204,16 +208,19 @@ class Tabulka
                             if($sl->zobrazit)
                             {
                                 ?>
-                            <th><?=$sl->nazevUziv?></th>
+                            <th ><?=$sl->nazevUziv?></th>
                         <?php 
                             }
                         }
                     ?>
-                </tr>      
+                </tr>    
+                    </thead> 
+                    <tbody> 
                     <?php
                         for($i = 0; $i < count($this->data); $i++)
                         {
                             echo "<tr>";
+
                             foreach($this->sloupce as $sl)
                             {
                                 if($sl->zobrazit)
@@ -223,11 +230,12 @@ class Tabulka
                             <?php
                                 }
                             }
-                            echo " </tr>";
+                            echo "</tr>";
                         } 
                       
          }
-                    ?>                  
+                    ?> 
+                    </tbody>                 
             </table>  
         <?php
     }

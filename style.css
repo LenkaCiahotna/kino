@@ -1,0 +1,39 @@
+body{
+
+}
+/*
+header{
+    background-color: red;
+}
+
+nav{
+height: 50px;
+}
+*/
+header{
+ background-color: red;
+display: flex;
+align-items: center;
+justify-content: space-around;
+text-transform: uppercase;
+padding-top: 10px;
+}
+
+.odkazy{
+    list-style-type: none ;
+}
+
+.odkazy li{
+    display: inline-block;
+    padding: 0px 20px;
+}
+
+.nav-vybrany{
+    background-color: green;
+}
+
+th { 
+    position: sticky; 
+    top: 0; 
+    background-color: red;
+ }

@@ -24,23 +24,19 @@ $druh = "filmy";
           break;
   }
 
-
+  Tabulka::$stranka = "razeni";
 ?>
 <html>
 <head>
 <title>Řazení</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+<link rel="stylesheet" href="style.css" type="text/css">
 </head>
-
 <body>  
-    <h1>Řazení</h1>
-<nav>
-  <ul id="navigace">
- <li><a href="vypis.php">Výpis</a></li>
-  <li><a href="pridavani.php">Přidávání</a></li>
- <li><a href="razeni.php">Řazení</a></li>
-  <li><a href="vyber.php">Výběr</a></li>
-  </ul>
-  </nav>
+<?php 
+include_once("header.php");
+?>
+
   <script>
     function odeslat()
     {
@@ -58,7 +54,6 @@ $druh = "filmy";
     <input type="hidden" id="zmenaTabulky" name="zmenaTabulky" value="">
     <?php
 $vypis->serad();  
-
 $vypis->vykresli();
 ?> </form>
 
