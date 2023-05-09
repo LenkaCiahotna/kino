@@ -56,4 +56,7 @@ include_once("header.php");
 $vypis->serad();  
 $vypis->vykresli();
 ?> </form>
+<?php 
+include_once("footer.php");
+?>
 

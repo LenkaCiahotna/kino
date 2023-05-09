@@ -37,7 +37,6 @@ $druh = "filmy";
 <?php 
 include_once("header.php");
 ?>  
-    <h1>Výběr</h1>
   <script>
     function odeslat()
     {
@@ -65,3 +64,5 @@ if (isset($_POST["uloz"]))
   $vypis->Vyber();
 }
 $vypis->vykresli();
+
+include_once("footer.php");

@@ -199,7 +199,7 @@ class Tabulka
         if($this->data != null)   
         {
             ?>
-            <table class="table table-striped table-secondary" >
+            <table class="table table-striped table-secondary w-auto table-responsive" >
                 <thead class="table-dark">
                 <tr>
                     <?php
@@ -208,7 +208,7 @@ class Tabulka
                             if($sl->zobrazit)
                             {
                                 ?>
-                            <th ><?=$sl->nazevUziv?></th>
+                            <th><?=$sl->nazevUziv?></th>
                         <?php 
                             }
                         }

@@ -43,12 +43,18 @@ Tabulka::$stranka = "pridavani";
 include_once("header.php");
 ?>
     <form method="POST">
-    Vyber tabulku: 
-    <select name="druh" onchange="submit()">
+      <table>
+        <tr>
+    <td>Vyber tabulku:</td>
+      <td>    
+        <select name="druh" onchange="submit()">
         <option value="filmy" <?= ($druh=="filmy" ?  'selected' : '') ?>>Filmy</option>
         <option value="promitani" <?= ($druh=="promitani" ?  'selected' : '') ?>>Promítání</option>
         <option value="saly" <?= ($druh=="saly" ?  'selected' : '') ?>>Sály</option>
     </select>
+  </td>
+</tr>
+      </table>
     <?php
 $vypis->FormularPridavani();
 //insert into TABULKA (NAZVY SLOUPCU) values (HODNOTY)
@@ -67,3 +73,6 @@ if (isset($_POST["uloz"]))
 
 $vypis->nactidata();
 $vypis->vykresli();
+
+include_once("footer.php");
+

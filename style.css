@@ -1,5 +1,14 @@
-body{
+html, body{
+   min-height: 100%;
+}
 
+
+body{
+    background-color: yellow;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding-top: 0px;
+    display: flex;
+    flex-direction: column;
 }
 /*
 header{
@@ -10,27 +19,84 @@ nav{
 height: 50px;
 }
 */
+#logo{
+    padding-top: 0px;
+}
+ 
 header{
- background-color: red;
 display: flex;
-align-items: center;
-justify-content: space-around;
+background-color: black;
+justify-content: left;
 text-transform: uppercase;
-padding-top: 10px;
+padding-top: 15px;
+
 }
 
+header a {
+    color: white;
+}
+
+#baner{
+    background-color: red ;
+}
 .odkazy{
     list-style-type: none ;
+    padding-left: 10pxpx;
 }
 
 .odkazy li{
     display: inline-block;
     padding: 0px 20px;
 }
+form{
+    padding-top: 15px;
+}
+
+.telo{
+    padding: 10px;
+    background-color: red;
+}
+
+form td{
+    min-width: 200px;
+
+}
+
+#footer{
+    background-color: black;
+    color: white;
+    bottom: 0;
+    width: 100%;
+    position: relative;
+    margin-bottom: 0px;
+    justify-content: end;
+}
+
+a{
+    text-decoration: none;
+}
 
 .nav-vybrany{
-    background-color: green;
+    border: none;
+    padding: 10px 10px;
+    background-color: 	white;
+    
+    border-radius: 20px;
 }
+/*
+.table>:not(caption)>*>*{
+    background-color: red;
+}
+
+
+.table-dark{
+    --bs-table-bg: black;
+}*/
+.nav-vybrany a{
+    color: black !important;
+}
+
+
 
 th { 
     position: sticky; 
