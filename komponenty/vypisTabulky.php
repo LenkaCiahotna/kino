@@ -139,7 +139,8 @@ class Tabulka
                 ?>
         </select>
        Sestupně: <input type="checkbox" name="sestupnost" <?= ($sestupnost ? 'checked' : '') ?>>
-       <input type="submit">
+       <br>
+       <input type="submit" value="ulož">
 
       <?php
         if($sloupec != null && $_POST["zmenaTabulky"] != 1)
@@ -159,7 +160,7 @@ class Tabulka
             {    
                 if($sl->jePrazdny())
                 {
-                    $chyba = "hodnota ".$sl->nazevUziv." nesmí být prázdná!";
+                    $chyba = "Nebyly doplněny všechny údaje!";
                     $chybi = true;
                     break;
                 }
@@ -199,7 +200,7 @@ class Tabulka
         if($this->data != null)   
         {
             ?>
-            <table class="table table-striped table-secondary w-auto table-responsive" >
+            <table class="table table-striped table-secondary w-auto px-3" >
                 <thead class="table-dark">
                 <tr>
                     <?php
@@ -208,7 +209,7 @@ class Tabulka
                             if($sl->zobrazit)
                             {
                                 ?>
-                            <th><?=$sl->nazevUziv?></th>
+                            <th class="align-middle"><?=$sl->nazevUziv?></th>
                         <?php 
                             }
                         }

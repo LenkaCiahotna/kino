@@ -35,6 +35,12 @@ Tabulka::$stranka = "pridavani";
 <html>
 <head>
 <title>Přidávání</title>
+<meta charset='utf-8'>
+<meta name='description' content=''>
+<meta name='keywords' content='výpis, kino, seznam, '>
+<meta name='author' content='Lenka Ciahotná'>
+<meta name='robots' content='all'>
+<meta name="viewport" content="width=device-width, viewport-fit=cover">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
@@ -42,6 +48,7 @@ Tabulka::$stranka = "pridavani";
 <?php 
 include_once("header.php");
 ?>
+<div class="telo">
     <form method="POST">
       <table>
         <tr>
@@ -58,9 +65,6 @@ include_once("header.php");
     <?php
 $vypis->FormularPridavani();
 //insert into TABULKA (NAZVY SLOUPCU) values (HODNOTY)
-
-
-
     ?>
      <input type="submit" value="ulož" name="uloz">
     </form>
@@ -73,6 +77,8 @@ if (isset($_POST["uloz"]))
 
 $vypis->nactidata();
 $vypis->vykresli();
-
+?>
+</div>
+<?php
 include_once("footer.php");
 
