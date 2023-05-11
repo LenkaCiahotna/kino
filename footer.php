@@ -1,4 +1,6 @@
-<footer class="footer mt-auto py-3 bg-black text-light px-3 d-flex justify-content-around text-center">
+<div class="bg-black mt-auto">
+<footer class="footer py-3 bg-black text-light px-3 d-flex justify-content-between container text-center">
+
       <div>
         <b>Kontakt</b>
       <br><br>
@@ -19,4 +21,6 @@
       <br><br>
       &copy; Lenka Ciahotná
 </div>
+  
   </footer>
+  </div>

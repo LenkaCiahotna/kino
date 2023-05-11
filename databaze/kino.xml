@@ -5,7 +5,7 @@
 - https://www.phpmyadmin.net
 -
 - Počítač: 127.0.0.1
-- Vytvořeno: Pon 24. dub 2023, 23:42
+- Vytvořeno: Pát 12. kvě 2023, 00:17
 - Verze serveru: 10.4.25-MariaDB
 - Verze PHP: 8.1.10
 -->
@@ -24,7 +24,7 @@
                   `delkaVMinutach` int(11) NOT NULL,
                   `popis` text COLLATE utf8mb4_czech_ci NOT NULL,
                   PRIMARY KEY (`id_filmu`)
-                ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
+                ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
             </pma:table>
             <pma:table name="promitani">
                 CREATE TABLE `promitani` (
@@ -38,7 +38,7 @@
                   KEY `id_saly` (`id_saly`),
                   CONSTRAINT `promitani_ibfk_1` FOREIGN KEY (`id_saly`) REFERENCES `saly` (`id_saly`),
                   CONSTRAINT `promitani_ibfk_2` FOREIGN KEY (`id_filmu`) REFERENCES `filmy` (`id_filmu`)
-                ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
+                ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
             </pma:table>
             <pma:table name="saly">
                 CREATE TABLE `saly` (
@@ -58,97 +58,62 @@
         <table name="filmy">
             <column name="id_filmu">1</column>
             <column name="nazev">DUNGEONS &amp; DRAGONS: ČEST ZLODĚJŮ</column>
-            <column name="zanr">Akční</column>
+            <column name="zanr"> Akční, Dobrodružný, Kome</column>
             <column name="delkaVMinutach">134</column>
             <column name="popis">Potulný zpěvák neboli bard Edgin (Chris Pine) se živí tím, že se svou partou zlodějíčků pomáhá měnit majitele vzácných artefaktů (jednomu ho ukradnou a druhému prodají). Je to práce, při které prakticky neustále strkáte hlavu do oprátky, a ani Edgin nemůže mít věčně kliku. Když se mu podaří šlohnout to, co se nikdy nemělo dostat do nesprávných rukou, a on to navíc do těch rukou dobrovolně vloží, spustí dominový efekt, který může otřást celým světem. Edgin je sice tak trochu zmetek, ale pořád má v sobě kousek cti, a tak se rozhodne napravit, co spískal. Protože však proti němu stojí armáda nelítostných zabijáků, mocných čarodějů a bývalý kamarád Forge Fletcher (Hugh Grant), potřebuje tým, se kterým by mohl mít aspoň nepatrnou šanci v tomhle úkolu obstát. A protože film vychází z legendární hry Dračí doupě, je jasné, že v jeho partě nesmí chybět drsná válečnice (Michelle Rodriguez), ušlechtilý rytíř (Regé-Jean Page), mág (Justice Smith) nebo druidka (Sophia Lillis).</column>
         </table>
         <table name="filmy">
-            <column name="id_filmu">6</column>
-            <column name="nazev">pokus</column>
-            <column name="zanr">pokus</column>
-            <column name="delkaVMinutach">80</column>
-            <column name="popis">pokus</column>
+            <column name="id_filmu">2</column>
+            <column name="nazev">SPIDER-MAN: NAPŘÍČ PARALELNÍMI SVĚTY</column>
+            <column name="zanr"> Akční, Animovaný, Sci-Fi</column>
+            <column name="delkaVMinutach">136</column>
+            <column name="popis">Miles Morales, který je nyní na plný úvazek dobrým sousedem Spider-Manem v Brooklynu, se znovu setkává s Gwen Stacyovou, se kterou se vydá na zběsilou jízdu Mnohovesmírem, v němž se setká s novou partou Pavoučích hrdinů, kteří brání samotnou podstatu paralelních světů. Když se však mezi Pavoučími hrdiny objeví rozpor, jak se vypořádat s novým nebezpečím, Miles zjistí, že bude muset přehodnotit, co pro něj znamená být hrdinou, aby zachránil ty, které na světě miluje nejvíc.</column>
         </table>
         <table name="filmy">
-            <column name="id_filmu">7</column>
-            <column name="nazev">ggseg</column>
-            <column name="zanr">gesg</column>
-            <column name="delkaVMinutach">66</column>
-            <column name="popis">gsgs</column>
-        </table>
-        <table name="filmy">
-            <column name="id_filmu">8</column>
-            <column name="nazev">ggseg</column>
-            <column name="zanr">gesg</column>
-            <column name="delkaVMinutach">66</column>
-            <column name="popis">gsgs</column>
+            <column name="id_filmu">3</column>
+            <column name="nazev">STRÁŽCI GALAXIE: VOLUME 3</column>
+            <column name="zanr">Akční, Dobrodružný, Sci-F</column>
+            <column name="delkaVMinutach">150</column>
+            <column name="popis">V nových Strážci Galaxie: Volume 3 se Peter Quill stále vzpamatovává ze ztráty Gamory a musí kolem sebe sestavit tým, aby bránil vesmír a zároveň jednoho ze svých. Pokud nebude mise úspěšně dokončena, mohla by dost možná vést ke konci Strážců jak je doposud známe. Film režíruje James Gunn a hrají v něm Chris Pratt, Zoe Saldana, Dave Bautista, Karen Gillan, Pom Klementieff, dále Vin Diesel jako Groot, Bradley Cooper jako Rocket, Sean Gunn, Chukwudi Iwuji, Will Poulter a Maria Bakalova. Producentem je Kevin Feige a výkonnými producenty jsou Louis D’Esposito, Victoria Alonso, Nikolas Korda, Simon Hatt a Sara Smith. </column>
         </table>
         <!-- Tabulka promitani -->
         <table name="promitani">
             <column name="id_promitani">1</column>
             <column name="id_filmu">1</column>
             <column name="id_saly">2</column>
-            <column name="termin">2023-04-11</column>
-            <column name="cas">15:00:00</column>
+            <column name="termin">2023-05-24</column>
+            <column name="cas">00:15:00</column>
         </table>
         <table name="promitani">
             <column name="id_promitani">2</column>
-            <column name="id_filmu">1</column>
-            <column name="id_saly">2</column>
-            <column name="termin">2023-04-11</column>
-            <column name="cas">09:20:00</column>
+            <column name="id_filmu">2</column>
+            <column name="id_saly">4</column>
+            <column name="termin">2023-05-14</column>
+            <column name="cas">17:10:00</column>
         </table>
         <table name="promitani">
             <column name="id_promitani">3</column>
-            <column name="id_filmu">1</column>
-            <column name="id_saly">3</column>
-            <column name="termin">2023-04-11</column>
-            <column name="cas">00:00:00</column>
-        </table>
-        <table name="promitani">
-            <column name="id_promitani">4</column>
-            <column name="id_filmu">1</column>
-            <column name="id_saly">1</column>
-            <column name="termin">2023-04-07</column>
-            <column name="cas">07:34:00</column>
-        </table>
-        <table name="promitani">
-            <column name="id_promitani">6</column>
-            <column name="id_filmu">6</column>
-            <column name="id_saly">3</column>
-            <column name="termin">2023-04-19</column>
-            <column name="cas">20:19:00</column>
-        </table>
-        <table name="promitani">
-            <column name="id_promitani">7</column>
-            <column name="id_filmu">7</column>
-            <column name="id_saly">2</column>
-            <column name="termin">2023-04-17</column>
-            <column name="cas">01:26:00</column>
-        </table>
-        <table name="promitani">
-            <column name="id_promitani">8</column>
-            <column name="id_filmu">6</column>
-            <column name="id_saly">2</column>
-            <column name="termin">2023-04-10</column>
-            <column name="cas">21:34:00</column>
+            <column name="id_filmu">2</column>
+            <column name="id_saly">4</column>
+            <column name="termin">2023-05-23</column>
+            <column name="cas">11:25:00</column>
         </table>
         <!-- Tabulka saly -->
         <table name="saly">
             <column name="id_saly">1</column>
-            <column name="kapacita">200</column>
+            <column name="kapacita">250</column>
         </table>
         <table name="saly">
             <column name="id_saly">2</column>
-            <column name="kapacita">200</column>
+            <column name="kapacita">300</column>
         </table>
         <table name="saly">
             <column name="id_saly">3</column>
-            <column name="kapacita">150</column>
+            <column name="kapacita">25</column>
         </table>
         <table name="saly">
             <column name="id_saly">4</column>
-            <column name="kapacita">250</column>
+            <column name="kapacita">25</column>
         </table>
     </database>
 </pma_xml_export>

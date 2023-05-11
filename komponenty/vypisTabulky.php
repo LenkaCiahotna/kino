@@ -69,7 +69,6 @@ class Tabulka
         echo "<table>";
         foreach(array_slice($this->sloupce,1) as $sl)
         {
-            
             ?>
             <tr>
             <td><?=$sl->nazevUziv?></td>
@@ -99,9 +98,7 @@ class Tabulka
                 <?php
                 foreach($data as $d)
                 {
-                    ?>
-                    <option value=<?= $d[$sl->ciziklic->sloupec]?>><?= $d[$sl->ciziklic->data]?></option>
-                    <?php
+                    ?><option value=<?= $d[$sl->ciziklic->sloupec]?>><?= $d[$sl->ciziklic->data]?></option><?php
                 }
                 ?>
                 </select>
@@ -158,6 +155,9 @@ class Tabulka
 
             foreach(array_slice($this->sloupce,1) as $sl)
             {    
+                /**
+                 * @var Sloupec $sl
+                 */
                 if($sl->jePrazdny())
                 {
                     $chyba = "Nebyly doplněny všechny údaje!";
@@ -177,10 +177,11 @@ class Tabulka
                 $sloupceString[] = $sl->nazevDb;
                 $dataString[]= "\"".$_POST[$sl->nazevDb]."\"";
             }
+            //cizi klic pocitame ze je cislo -> bez uvozovek
             else if($sl->ciziklic != null)
             {
-                $dataString[] =$_POST[$sl->nazevDb];
                 $sloupceString[] = $sl->nazevDb;
+                $dataString[] =$_POST[$sl->nazevDb];              
             }   
         }
         $sloupceString2 = join(", ", $sloupceString);
