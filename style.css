@@ -4,7 +4,7 @@ html, body{
 
 
 body{
-    background-color: black;
+    background-color: white;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     padding-top: 0px;
     display: flex;
@@ -24,7 +24,7 @@ height: 50px;
 }
  
 header{
-background-color: transparent;
+background-color: black;
 justify-content: left;
 text-transform: uppercase;
 padding-top: 15px;
@@ -64,8 +64,8 @@ form{
 .telo{
     padding: 10px;
     background-color: white;
-    margin: 10px;
 }
+
 
 
 form td{

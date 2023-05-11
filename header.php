@@ -1,7 +1,7 @@
 <?php
 require_once("komponenty/vypisTabulky.php");
 ?>
-<header class="container">
+<header>
 <nav>
     <ul class="odkazy">
       <li class=" <?= Tabulka::$stranka == "domu" ? "nav-vybrany" : "" ?>"><a href="index.php" class="nav-polozka">Grand cinemax</a></li>
