@@ -17,7 +17,13 @@ class Sloupec
     $this->datTyp = $datTyp;
   }
 
-  public  function jePrazdny()
+  /**
+   * test jestli je hodnota prazdna 
+   * 
+   * false = prazdna
+   * @return bool
+   */
+  public function jePrazdny()
   {
     if(isset($_POST[$this->nazevDb]))
     {

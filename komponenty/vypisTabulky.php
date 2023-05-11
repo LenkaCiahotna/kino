@@ -1,9 +1,13 @@
+
 <?php
 class Tabulka
 {
+    
     protected $data = null;
     protected $sloupce = null;
     protected $nazevTabulky = null;
+
+    public static $stranka = "index";
 
 //nazev v DB, nazev česky, skrývání/odkryty
     public function __construct($sloupce = array())
@@ -17,12 +21,54 @@ class Tabulka
         $this->data = Db::queryAll("select * from ".$this->nazevTabulky);
     }
  
-    public function uprava()
+    public function FormularVyber()
+    {
+       
+        echo "<table>";
+        foreach($this->sloupce as $sl)
+        {
+            $zaskrknuto = isset($_POST[$sl->nazevDb]) && $_POST["zmenaTabulky"] != 1;;
+         ?>
+            <tr>
+            <td><?=$sl->nazevUziv?></td>
+            <td><input type="checkbox" name=<?=$sl->nazevDb?> <?= $zaskrknuto ? "checked" : "" ?>></td>
+            </tr>
+         <?php
+        }
+        echo "</table>";
+    }
+
+    public function Vyber()
+    {
+        $vyber = array();
+        foreach($this->sloupce as $sl)
+        {         
+            if(!isset($_POST[$sl->nazevDb]))
+            {
+                $sl->zobrazit = false;
+            }
+            if($sl->zobrazit == true)
+            {
+                $vyber[] = $sl->nazevDb;
+            }
+        }
+        $vyberString = join(", ", $vyber);
+        if($vyberString != "")
+        {
+            $this->data = Db::queryAll("select ".$vyberString." from ".$this->nazevTabulky);
+        }
+        else
+        {
+            echo "Vyber alespoň 1 položku";
+        }
+        
+       
+    }
+    public function FormularPridavani()
     {
         echo "<table>";
         foreach(array_slice($this->sloupce,1) as $sl)
         {
-            
             ?>
             <tr>
             <td><?=$sl->nazevUziv?></td>
@@ -42,7 +88,7 @@ class Tabulka
              }
              else if($sl->ciziklic == null)
             {
-                echo "<input type='text' name='".$sl->nazevDb."'>";
+                 echo "<input type='text' name='".$sl->nazevDb."'>";
             }
              else
             {
@@ -52,9 +98,7 @@ class Tabulka
                 <?php
                 foreach($data as $d)
                 {
-                    ?>
-                    <option value=<?= $d[$sl->ciziklic->sloupec]?>><?= $d[$sl->ciziklic->data]?></option>
-                    <?php
+                    ?><option value=<?= $d[$sl->ciziklic->sloupec]?>><?= $d[$sl->ciziklic->data]?></option><?php
                 }
                 ?>
                 </select>
@@ -71,9 +115,12 @@ class Tabulka
 
     public function serad()
     {
+        $sloupec = null;
+        $sestupnost = isset($_POST["sestupnost"]) && $_POST["zmenaTabulky"] != 1;
         if(isset($_POST["sloupec"]))
         {
         $sloupec = $_POST["sloupec"];
+        }
        ?> <br>
         Vyber sloupec, podle kterého chceš řadit: 
         <?php
@@ -83,34 +130,41 @@ class Tabulka
                 foreach($this->sloupce as $sl)
                 {
                     ?>
-                    <option value=<?php $sl->nazevDb; $sloupec==$sl->nazevDb ?  'selected' : '' ?>><?= $sl->nazevUziv?></option>
+                    <option value="<?= $sl->nazevDb ?>"  <?= ($sloupec==$sl->nazevDb && $_POST["zmenaTabulky"] != 1 ?  ' selected' : '' ) ?>><?= $sl->nazevUziv?></option>
                     <?php
                 }
                 ?>
-        </select
-       ?>
-       Sestupně: <input type="checkbox" name="sestupnost">
-       <input type="submit">
+        </select>
+       Sestupně: <input type="checkbox" name="sestupnost" <?= ($sestupnost ? 'checked' : '') ?>>
+       <br>
+       <input type="submit" value="ulož">
+
       <?php
+        if($sloupec != null && $_POST["zmenaTabulky"] != 1)
+        {
+            $this->data = Db::queryAll("select * from ".$this->nazevTabulky." order by ".$sloupec." ".($sestupnost ? 'desc' : ''));
+        }
         
-        $this->data = Db::queryAll("select * from ".$this->nazevTabulky." order by ".$sloupec);
         
-         }
+         
     }
     public function pridej()
     {
         $chyba = "";
         $chybi=false;
-        foreach(array_slice($this->sloupce,1) as $sl)
-        {    
-            if($sl->jePrazdny())
-            {
-                $chyba = "hodnota ".$sl->nazevUziv." nesmí být prázdná!";
-                $chybi = true;
-                break;
-            }
-        }
-         
+
+            foreach(array_slice($this->sloupce,1) as $sl)
+            {    
+                /**
+                 * @var Sloupec $sl
+                 */
+                if($sl->jePrazdny())
+                {
+                    $chyba = "Nebyly doplněny všechny údaje!";
+                    $chybi = true;
+                    break;
+                }
+            }     
         
        if(!$chybi)
        {
@@ -123,56 +177,68 @@ class Tabulka
                 $sloupceString[] = $sl->nazevDb;
                 $dataString[]= "\"".$_POST[$sl->nazevDb]."\"";
             }
+            //cizi klic pocitame ze je cislo -> bez uvozovek
             else if($sl->ciziklic != null)
             {
-                $dataString[] =$_POST[$sl->nazevDb];
                 $sloupceString[] = $sl->nazevDb;
+                $dataString[] =$_POST[$sl->nazevDb];              
             }   
         }
         $sloupceString2 = join(", ", $sloupceString);
         $dataString2 = join(", ", $dataString);
 
         Db::queryAll("insert into ".$this->nazevTabulky." (".$sloupceString2.") values (".$dataString2.")");
+        header("Location: pridavani.php?druh=".$this->nazevTabulky);
        }
        else
        {
         echo $chyba;
        }
-           
-       
-  
+    
     }
-
     public function vykresli()
     {
-        
-        ?>
-            <table border="2" >
+        if($this->data != null)   
+        {
+            ?>
+            <table class="table table-striped table-secondary w-auto px-3" >
+                <thead class="table-dark">
                 <tr>
                     <?php
-                        for($i = 0; $i < count($this->sloupce); $i++)
-                        {?>
-                            <th><?=$this->sloupce[$i]->nazevUziv?></th>
-                        <?php }
+                        foreach($this->sloupce as $sl)
+                        {
+                            if($sl->zobrazit)
+                            {
+                                ?>
+                            <th class="align-middle"><?=$sl->nazevUziv?></th>
+                        <?php 
+                            }
+                        }
                     ?>
-                </tr>
-                
+                </tr>    
+                    </thead> 
+                    <tbody> 
                     <?php
                         for($i = 0; $i < count($this->data); $i++)
                         {
                             echo "<tr>";
-                            for($y = 0; $y < count($this->sloupce); $y++)
+
+                            foreach($this->sloupce as $sl)
                             {
+                                if($sl->zobrazit)
+                                {
                                 ?>
-                                <td><?=$this->data[$i][$this->sloupce[$y]->nazevDb]?></td>
-                               
+                                <td><?=$this->data[$i][$sl->nazevDb]?></td>  
                             <?php
+                                }
                             }
-                            echo " </tr>";
-                        }
-                    ?>
-                         
-            </table>
+                            echo "</tr>";
+                        } 
+                      
+         }
+                    ?> 
+                    </tbody>                 
+            </table>  
         <?php
     }
 

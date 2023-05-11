@@ -1,0 +1,170 @@
+html, body{
+   min-height: 100%;
+}
+
+
+body{
+    background-color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding-top: 0px;
+    display: flex;
+    flex-direction: column;
+}
+/*
+header{
+    background-color: red;
+}
+
+nav{
+height: 50px;
+}
+*/
+#logo{
+    padding-top: 0px;
+}
+ 
+header{
+background-color: black;
+justify-content: left;
+text-transform: uppercase;
+padding-top: 15px;
+
+}
+
+header a {
+    color: white;
+}
+
+#baner{
+    color: white;
+    align-items: center;
+    background-image: url("kino.jpg");
+    background-attachment: fixed;
+    padding-top: 150px;
+    padding-bottom: 150px;
+    text-shadow: 2px 2px gray;   
+}
+
+
+h1{
+    font-size: 600%;
+}
+
+.odkazy{
+    list-style-type: none ;
+    padding-left: 10px;
+}
+
+.odkazy li{
+    display: inline-block;
+    padding: 0px 20px;
+}
+form{
+    padding-top: 15px;
+}
+
+.telo{
+    padding: 10px;
+    background-color: white;
+}
+
+
+
+form td{
+    min-width: 200px;
+
+}
+
+a{
+    text-decoration: none;
+}
+
+.nav-vybrany{
+    border: none;
+    padding: 10px 10px;
+    background-color: 	white;
+    border-radius: 20px;
+}
+
+img{
+    width: 300px;
+    border-radius: 5px;
+    padding-bottom: 5px;
+    transition: transform .2s;
+}
+
+img:hover{
+    transform: scale(1.05);
+}
+
+
+/*
+.table>:not(caption)>*>*{
+    background-color: red;
+}
+
+
+.table-dark{
+    --bs-table-bg: black;
+}*/
+.nav-vybrany a{
+    color: black !important;
+}
+
+footer ul a{
+    color:white ;
+    }
+
+footer ul a:hover{
+color:rgb(190, 190, 190) ;
+}
+
+th { 
+    position: sticky; 
+    top: 0; 
+ }
+
+ input, select{
+    background-color: rgb(247, 247, 247);
+    border-color: gray;
+    border-radius: 6px;
+ }
+
+ input{
+    border-color: rgb(180, 180, 180);
+ }
+
+
+ input[type=submit]{
+    margin-top: 10px;
+    border-radius: 10px;
+    width: 60px;
+    background-color: transparent;
+    border-color: gray;
+    
+ }
+
+ input[type=submit]:hover{
+    background-color: rgb(214, 213, 213);
+ }
+
+ @media (max-width: 700px){
+    
+    .odkazy li
+    {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        font-size: 120%;
+    }
+
+    #baner{
+        font-size: 80%;
+        text-align: center;
+    }
+
+    img{
+        width:100%;
+    }
+    
+}
