@@ -29,7 +29,7 @@ Tabulka::$stranka = "vypis";
 <?php 
 include_once("header.php");
 ?>
-<div class="telo">
+<div class="telo container">
     <form method="POST">
     Vyber tabulku: 
     <select name="druh" onchange="submit()">
