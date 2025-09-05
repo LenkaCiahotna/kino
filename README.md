@@ -19,7 +19,7 @@ Projekt vyžaduje PHP server (např. XAMPP, MAMP, vlastní hosting) a databázi 
 
 ### 1️⃣ Naklonování projektu
 ```bash
-git clone https://github.com/uzivatel/nazev-projektu.git 
+git clone https://github.com/lenkaciahotna/kino.git 
 ```
 ### 2️⃣ Import databáze
 - **Z SQL souboru (`database.sql`)**, alternativně využít XML soubor (`database.xml`)
