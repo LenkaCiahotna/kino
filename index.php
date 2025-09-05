@@ -24,7 +24,7 @@ include_once("header.php");
 <div id="baner"> 
    <div id="nadpis" class="container">
    <h1>Grand Cinemax</h1>
-   <h2>Nejlepší kino nenajdete</h2>
+   <h2>Lepší kino nenajdete</h2>
    <h4>2D | 3D | 4DX | IMAX</h4>
    </div>
 </div>

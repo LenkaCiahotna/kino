@@ -45,7 +45,7 @@ include_once("header.php");
 ?>  
 
   <script>
-    function odeslat()
+  function odeslat()
     {
         let zmenaTabulkyHidden = document.querySelector("#zmenaTabulky"); 
         zmenaTabulkyHidden.value = "1";
