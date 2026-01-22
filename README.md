@@ -1,5 +1,3 @@
-## 👩🏻‍💻 Použité technologie
-
 # Fiktivní web kina – školní projekt
 
 Jednoduchá webová aplikace vytvořena s využitím **PHP** s databází **MySQL**, která umožňuje jednoduchou práci s databází. 
